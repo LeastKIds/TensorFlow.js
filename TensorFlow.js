@@ -14,11 +14,23 @@ const X = tf.input({shape: [1]});   // shape : 원인의 개수
 const Y = tf.layers.dense({ units : 1 }).apply(X);  // units : 결과의 개수, apply : 원인과 겨과를 이어주는 것
 const model = tf.model({ inputs : X, outputs : Y });
 // optimizer : 좀 더 효율적으로 모델을 만드는 방법, loss : 모델이 잘 만들어 졌는지 측정하는 방법
+// meanSquaredError : 평균 제곱 오차 (MSE), rootMeanSquaredError(RMSE) : 평균 제곱근 오차
 const compileParam = { optimizer : tf.train.adam(), loss : tf.losses.meanSquaredError }
 model.compile(compileParam);
 
 // 3. 데이터로 모델을 학습시키기
-const fitParam = {epochs : 30000 }    // epochs : 몇 번 학습을 할지, 30000번에 정확한 값 도출
+// const fitParam = {epochs : 30000 }    // epochs : 몇 번 학습을 할지, 30000번에 정확한 값 도출
+
+// 학습을 시킬 때 얼마나 돌려야 되는지 알려줌
+const fitParam = {
+    epochs : 10000,
+    callbacks : {
+        onEpochEnd : function (epoch, logs) {
+            console.log('epoch', epoch, logs, 'RMSE => ' , Math.sqrt(logs.loss));
+        }
+    }
+}
+
 model.fit(reason, result, fitParam).then(function (result) {
 
 //    4. 모델을 이용
