@@ -1,0 +1,41 @@
+{
+  "name": "TensorFlow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeastKIds/TensorFlow.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeastKIds/TensorFlow.js/issues"
+  },
+  "homepage": "https://github.com/LeastKIds/TensorFlow.js#readme",
+  "devDependencies": {
+    "eslint": "^7.30.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
+    "rules": {
+      "react/prefer-stateless-function": 0,
+      "react/jsx-filename-extension": 0,
+      "react/jsx-one-expression-per-line": 0,
+      "react/prop-types": 0
+    },
+    "env": {
+      "browser": true
+    }
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.7.0"
+  }
+}
