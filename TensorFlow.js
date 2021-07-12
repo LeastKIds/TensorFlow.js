@@ -1,4 +1,8 @@
-const tf = require('@tensorflow/tfjs');
+
+
+// const tf = require('@tensorflow/tfjs');
+const tf = require('@tensorflow/tfjs-node');
+const path = require('path');
 
 // 1. 데이터 값 넣어주기
 const temp = [20,21,22,23];
@@ -31,12 +35,12 @@ const fitParam = {
     }
 }
 
-model.fit(reason, result, fitParam).then(function (result) {
+model.fit(reason, result, fitParam).then(async function (result) {
 
 //    4. 모델을 이용
 //    4.1 기존의 데이터를 이용
     const predictResult = model.predict(reason);
-    console.log(predictResult.print());
+    // console.log(predictResult.print());
 //    실제에서는 20~23 까지의 값을 넣어서 결과를 도출하는것이 아닌
 //    20,21의 값을 넣어서 학습 시킨 뒤
 //    22,23의 값을 넣어서 나온 결과가 정답인지 아닌지 비교하는게
@@ -44,10 +48,37 @@ model.fit(reason, result, fitParam).then(function (result) {
 
 
     // 5. 사용
-    const nextTemp = [15,16,17,18,19];
+    const nextTemp = [15, 16, 17, 18, 19];
     const nextReason = tf.tensor(nextTemp);
     const nextResult = model.predict(nextReason);
 
-    console.log(nextResult.print());
+    // const nextResultSave = nextResult.array().then(array => console.log(array));
+    // console.log(nextResult.print());
+    // console.log(nextResultSave);
+
+    // Y = a * X + b , a = weight(가중치), b = bias(편향)
+    const weights = model.getWeights(); // 배열로 [0][0] : weight, [0][1] : bias 값이 담겨 있음
+    const weight = weights[0].arraySync()[0][0];
+    const bias = weights[1].arraySync()[0];
+
+    // let weight2;
+    // let bias2;
+    //
+    // weights[0].array().then(array => weight2 = array);
+    // console.log(weight2);
+    //
+    // weights[0].data().then(data => weight2 = data);
+    // console.log(weight2);
+    console.log('weights : ' + weights);
+    console.log('weight : ' + weight);
+    console.log('bias : ' + bias);
+
+    try {
+        const currentDirectory = __dirname;
+        await model.save('file://' + currentDirectory +'/path/to/lemon');
+    } catch(error) {
+        console.error(error);
+    }
+
 });
 
