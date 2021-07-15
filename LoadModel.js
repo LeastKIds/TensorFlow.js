@@ -1,4 +1,5 @@
 const tf = require('@tensorflow/tfjs-node');
+const { reason, result } = require('./data');
 
 async function test(){
     try {
@@ -12,5 +13,9 @@ async function test(){
     }
 }
 
-test();
+// test();
+console.log(123);
+console.log(reason);
+console.log(result);
+
 
