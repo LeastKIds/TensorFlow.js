@@ -14,8 +14,9 @@ async function test(){
 }
 
 // test();
-console.log(123);
-console.log(reason);
-console.log(result);
+// console.log(123);
+// console.log(reason);
+// console.log(result);
+console.log(__dirname);
 
 
